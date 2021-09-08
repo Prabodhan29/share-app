@@ -6,17 +6,17 @@ router.get("/:uuid", async function (req, res) {
   try {
     const file = await File.findOne({ uuid: req.params.uuid });
     if (!file) {
-      return res.render("downloads.ejs", { error: "Link has been expired" });
+      return res.render("download.ejs", { error: "Link has been expired" });
     }
 
-    return res.render("downloads.ejs", {
+    return res.render("download.ejs", {
       uuid: file.uuid,
       fileName: file.filename,
       fileSize: file.size,
       downloadLink: `${process.env.APP_BASE_URL}/files/downloads/${file.uuid}`,
     });
   } catch (err) {
-    return res.render("downloads.ejs", { error: "Something went wrong" });
+    return res.render("download.ejs", { error: "Something went wrong" });
   }
 });
 

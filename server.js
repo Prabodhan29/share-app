@@ -29,4 +29,8 @@ app.use("/api/files", require("./routes/files.js"));
 app.use("/files", require("./routes/show.js"));
 app.use("files/downloads/", require("./routes/download.js"));
 
+app.get("/", function (req, res) {
+  res.render("download.ejs");
+});
+
 app.listen(PORT, console.log(`Listening on port ${PORT}.`));
