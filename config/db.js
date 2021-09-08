@@ -1,19 +1,22 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
-const connectDB = async () => {
-  try {
-    // mongodb connection string
-    const con = await mongoose.connect(
-      "mongodb://localhost:27017/filesharingDB",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-};
+function connectDB() {
+  // Database connection 🥳
+  mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+  });
+  const connection = mongoose.connection;
+  connection
+    .once("open", () => {
+      console.log("Database connected...");
+    })
+    .catch((err) => {
+      console.log("Connection failed!");
+    });
+}
 
 module.exports = connectDB;
