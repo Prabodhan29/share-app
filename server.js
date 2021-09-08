@@ -8,6 +8,8 @@ const corsOptions = {
   origin: process.env.ALLOWED_CLIENTS.split(","),
 };
 
+const PORT = process.env.PORT || 3000;
+
 app.use(cors(corsOptions));
 
 // Database connection
@@ -27,6 +29,4 @@ app.use("/api/files", require("./routes/files.js"));
 app.use("/files", require("./routes/show.js"));
 app.use("files/downloads/", require("./routes/download.js"));
 
-app.listen("3000", function () {
-  console.log("Server is running on port 3000");
-});
+app.listen(PORT, console.log(`Listening on port ${PORT}.`));
